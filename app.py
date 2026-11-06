@@ -1,3 +1,15 @@
+import os
+import openpyxl
+import pandas as pd
+import smtplib
+import mimetypes
+from email.message import EmailMessage
+from analyticskit import *
+
+pd.options.display.float_format = '{:,.2f}'.format # Display option to include 2 decimal places on all floats
+pd.set_option('display.max_columns', None) # Display option to show all columns
+pd.set_option('display.max_rows', None) # Display option to show all rows
+
 while True: 
     directory = single_input("Please input the directory where the 'ProductData.xlsx', 'MasterInvoice.pdf, and 'Order' files are located.", mask=False, width=400, height=200)
     directory = directory.strip('"')
@@ -109,10 +121,10 @@ def create_invoice(invoice_num, order_data, directory):
 new_invoice = create_invoice('8515',order_data,directory)
 print(new_invoice)
 
+
 gmail_password_path = select_file('Please select the gmail password file')
 
 gmail_password = open(gmail_password_path).read()   
-
 
 def send_email (invoice_num, name, email, date, directory):
 
